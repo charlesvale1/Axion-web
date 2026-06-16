@@ -829,6 +829,9 @@ p,.section-copy,.ph-sub,.lead-block p,.about-lead p,.about-body p{text-wrap:pret
 @media(max-width:600px){.step h4,#page-contact .feature-card h4,.philosophy-card h3,.note-card h4{min-height:0!important}}
 /* ===== Korean body wrapping: natural (kill keep-all orphans) ===== */
 p,.section-copy,.lead-block p,.feature-card p,.market-card p,.trust-card p,.philosophy-card p,.step p,.infra-card p,.note-card p,.arch-c p,.acc-body .inner,.risk-overview p,.contact-panel p,.ph-sub,.about-lead p,.about-body p,.hero-copy p,.gov-quote,.statement .sub,.mi-d,.quickfact .meta,.footer-tag,.fcol a,.disclosures p{word-break:normal!important;overflow-wrap:break-word}
+/* ===== line-break: prose = keep-all(깔끔), 카드설명 = normal(중점 묶음 대응) ===== */
+.hero-copy p,.section-copy,.lead-block p,.about-lead p,.about-body p,.ph-sub,.gov-quote,.statement .sub,.statement .lead,.contact-panel p,.disclosures p,.mo-aside-lead,.partners-head .section-copy{word-break:keep-all!important;overflow-wrap:break-word}
+.feature-card p,.philosophy-card p,.market-card p,.trust-card p,.step p,.infra-card p,.note-card p,.arch-c p,.acc-body .inner,.risk-overview p,.mi-d,.quickfact .meta{word-break:normal!important;overflow-wrap:break-word}
 </style>
 <div class="nav-wrap">
 <nav class="nav">
