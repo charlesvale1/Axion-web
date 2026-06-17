@@ -852,6 +852,18 @@ p,.section-copy,.lead-block p,.feature-card p,.market-card p,.trust-card p,.phil
 /* 모든 산문 줄 균형 */
 .hero-copy p,.section-copy,.lead-block p,.about-lead p,.about-body p,.ph-sub,.gov-quote,.statement .sub,.statement .lead,.contact-panel p,.partners-head .section-copy,.mo-aside-lead{text-wrap:balance!important}
 .feature-card p,.philosophy-card p,.market-card p,.trust-card p,.step p,.infra-card p,.note-card p,.arch-c p,.acc-body .inner,.risk-overview p,.mi-d,.quickfact .meta{word-break:keep-all!important}
+/* ===== mobile/tablet: 숫자밴드·히어로 과대 크기 보정 ===== */
+.quickfact .value{font-size:clamp(28px,5.2vw,50px)!important}
+@media(max-width:600px){
+  .hero h1{font-size:33px!important;line-height:1.22!important}
+  .hero-copy p{font-size:14.5px!important;line-height:1.85!important}
+  .quickfact{padding:16px 8px 18px 2px!important}
+  .quickfact .value em{font-size:12px!important}
+  .quickfact .label{font-size:9px!important;letter-spacing:.06em!important}
+  .quickfact .meta{font-size:11px!important}
+  .hero-actions{margin-top:28px!important}
+  .quickfacts{margin-top:26px!important}
+}
 </style>
 <div class="nav-wrap">
 <nav class="nav">
@@ -1450,46 +1462,59 @@ accItems.forEach(item=>{
   document.getElementById('trkCum').textContent = 'Illustrative only';
 })();
 
-/* ===== menu router (sub-pages) ===== */
+/* ===== menu router (clean paths) ===== */
 (function(){
   const overlay=document.getElementById('menuOverlay');
   const pages=Array.prototype.slice.call(document.querySelectorAll('.page'));
   const landers=Array.prototype.slice.call(document.querySelectorAll('.lander'));
+  var S2P={company:'page-company',strategy:'page-strategy',solutions:'page-solutions',technology:'page-technology',contact:'page-contact'};
+  var P2S={}; Object.keys(S2P).forEach(function(k){P2S[S2P[k]]=k;});
   function closeMenu(){ if(!overlay)return; overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
   function openMenu(){ if(!overlay)return; overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
   function home(){ pages.forEach(function(p){p.style.display='none';}); landers.forEach(function(e){e.style.display='';}); }
-  function setView(id){
+  function pageOf(el){ return el.classList.contains('page')?el:(el.closest?el.closest('.page'):null); }
+  function render(id){
     if(!id||id==='home'){ home(); window.scrollTo(0,0); closeMenu(); return; }
-    const el=document.getElementById(id);
+    var el=document.getElementById(id);
     if(!el){ home(); window.scrollTo(0,0); closeMenu(); return; }
-    const page=el.classList.contains('page')?el:(el.closest?el.closest('.page'):null);
+    var page=pageOf(el);
     if(page){
       landers.forEach(function(e){e.style.display='none';});
       pages.forEach(function(p){p.style.display=(p===page?'block':'none');});
-      page.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+      page.querySelectorAll('.reveal').forEach(function(x){x.classList.add('in');});
       window.scrollTo(0,0);
       if(el!==page){ setTimeout(function(){el.scrollIntoView({block:'start'});},10); }
-    } else {
-      home();
-      setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},20);
-    }
+    } else { home(); setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},20); }
     closeMenu();
   }
-  function route(){ setView(location.hash.slice(1)); }
+  function setURL(path,push){ try{ if(push) history.pushState(null,'',path); else history.replaceState(null,'',path); }catch(e){} }
+  function pathFor(id){
+    if(!id||id==='home') return '/';
+    var el=document.getElementById(id); if(!el) return '/';
+    var page=pageOf(el);
+    if(page) return '/'+(P2S[page.id]||page.id);
+    return '/';
+  }
+  function navTo(id,push){ render(id); setURL(pathFor(id),push); }
+  function routePath(){
+    var p=location.pathname.replace(/^\/+|\/+$/g,'').toLowerCase();
+    if(!p){ render('home'); return; }
+    if(S2P[p]){ render(S2P[p]); return; }
+    render('home'); setURL('/',false);
+  }
   document.addEventListener('click',function(e){
-    const a=e.target.closest&&e.target.closest('a[href^="#"]'); if(!a)return;
-    const href=a.getAttribute('href'); e.preventDefault();
+    var a=e.target.closest&&e.target.closest('a[href^="#"]'); if(!a)return;
+    var href=a.getAttribute('href'); e.preventDefault();
     if(href.length<2)return;
-    const id=href.slice(1);
-    if(id==='home'){ if(location.hash){ history.replaceState(null,'',location.pathname+location.search); } setView('home'); return; }
-    if(location.hash.slice(1)===id){ setView(id); } else { location.hash=id; }
+    navTo(href.slice(1),true);
   });
-  window.addEventListener('hashchange',route);
-  const mb=document.getElementById('menuBtn'); if(mb) mb.addEventListener('click',openMenu);
-  const mc=document.getElementById('menuClose'); if(mc) mc.addEventListener('click',closeMenu);
+  window.addEventListener('popstate',routePath);
+  var mb=document.getElementById('menuBtn'); if(mb) mb.addEventListener('click',openMenu);
+  var mc=document.getElementById('menuClose'); if(mc) mc.addEventListener('click',closeMenu);
   if(overlay) overlay.addEventListener('click',function(e){ if(e.target===overlay) closeMenu(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
-  route(); /* URL 해시로 현재 페이지 복원 (새로고침 유지) */
+  try{ var rd=sessionStorage.getItem('spa_redirect'); if(rd){ sessionStorage.removeItem('spa_redirect'); history.replaceState(null,'',rd); } }catch(e){}
+  routePath();
 })();
 
 /* mobile navigation toggle */
