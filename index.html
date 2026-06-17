@@ -1475,16 +1475,21 @@ accItems.forEach(item=>{
     }
     closeMenu();
   }
+  function route(){ setView(location.hash.slice(1)); }
   document.addEventListener('click',function(e){
     const a=e.target.closest&&e.target.closest('a[href^="#"]'); if(!a)return;
     const href=a.getAttribute('href'); e.preventDefault();
     if(href.length<2)return;
-    setView(href.slice(1));
+    const id=href.slice(1);
+    if(id==='home'){ if(location.hash){ history.replaceState(null,'',location.pathname+location.search); } setView('home'); return; }
+    if(location.hash.slice(1)===id){ setView(id); } else { location.hash=id; }
   });
+  window.addEventListener('hashchange',route);
   const mb=document.getElementById('menuBtn'); if(mb) mb.addEventListener('click',openMenu);
   const mc=document.getElementById('menuClose'); if(mc) mc.addEventListener('click',closeMenu);
   if(overlay) overlay.addEventListener('click',function(e){ if(e.target===overlay) closeMenu(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
+  route(); /* URL 해시로 현재 페이지 복원 (새로고침 유지) */
 })();
 
 /* mobile navigation toggle */
