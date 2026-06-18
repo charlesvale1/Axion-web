@@ -47,7 +47,7 @@ body{
   margin:0;
   font-family:var(--sans);
   background:
-    radial-gradient(900px 500px at 82% 12%, rgba(88,77,155,.13), transparent 60%),
+    radial-gradient(900px 500px at 82% 12%, rgba(88,77,155,.075), transparent 60%),
     linear-gradient(180deg,#020203 0%,#040406 42%,#020203 100%);
   color:var(--txt);
   -webkit-font-smoothing:antialiased;
@@ -131,7 +131,7 @@ button{font:inherit}
 .btn-main{background:#f3f2f2;color:#09090a}
 .btn-sub{background:rgba(255,255,255,.02);color:#f3f3f6}
 .btn-main:hover,.btn-sub:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.24)}
-.btn-sub b{width:6px;height:6px;border-radius:50%;background:var(--violet);display:inline-block;box-shadow:0 0 12px rgba(126,108,255,.7)}
+.btn-sub b{width:5px;height:5px;border-radius:50%;background:var(--violet-2);display:inline-block}
 .hero-visual{position:relative;height:560px;border:1px solid var(--line);background:var(--hero) center/cover no-repeat;overflow:hidden}
 .hero-visual::before{
   content:"";position:absolute;inset:0;
@@ -152,7 +152,7 @@ button{font:inherit}
 /* philosophy */
 .philosophy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .philosophy-card{padding:28px 24px;min-height:240px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.philosophy-card::after{content:"";position:absolute;inset:auto -20px -60px auto;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(126,108,255,.14),transparent 64%)}
+.philosophy-card::after{content:none}
 .philosophy-ic{width:38px;height:38px;border:1px solid var(--line-2);display:grid;place-items:center;font-size:14px;color:var(--violet-2)}
 .philosophy-card h3{margin:18px 0 12px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500}
 .philosophy-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.8}
@@ -489,7 +489,7 @@ body{font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:o
 .menu-btn .bars::before{top:1px}.menu-btn .bars::after{top:7px}
 .menu-overlay{position:fixed;inset:0;z-index:300;background:rgba(3,3,5,.975);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);opacity:0;visibility:hidden;overflow-y:auto;transition:opacity .55s cubic-bezier(.2,.8,.2,1),visibility .55s}
 .menu-overlay.open{opacity:1;visibility:visible}
-.menu-overlay::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 82% -10%,rgba(126,108,255,.10),transparent 60%);pointer-events:none}
+.menu-overlay::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 82% -10%,rgba(126,108,255,.05),transparent 60%);pointer-events:none}
 .mo-grid{position:relative;max-width:1180px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding:0 clamp(24px,5vw,48px)}
 .mo-head{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .mo-logo{font-family:var(--mono);font-size:12px;letter-spacing:.42em;color:#fff;display:flex;gap:10px;text-decoration:none}
@@ -1025,6 +1025,37 @@ a.cap-row:hover .cr-t{color:var(--violet-2)}
 .flow{justify-content:space-between}
 .flow .fstep{flex:1 1 0;display:flex;justify-content:center}
 .flow .farr{flex:0 0 auto}
+/* ===== 지표 밴드 터미널화 ===== */
+.quickfact{border-left:1px solid rgba(255,255,255,.045)}
+.quickfacts>.quickfact:first-child{border-left:none}
+.quickfact .label b{display:none}
+.quickfact .value{font-variant-numeric:tabular-nums}
+@media(max-width:600px){.quickfacts>.quickfact:nth-child(odd){border-left:none}}
+/* ===== 지표 밴드 터미널화 ===== */
+.quickfact{border-left:1px solid rgba(255,255,255,.045)}
+.quickfacts>.quickfact:first-child{border-left:none}
+.quickfact .label b{display:none}
+.quickfact .value{font-variant-numeric:tabular-nums}
+@media(max-width:600px){.quickfacts>.quickfact:nth-child(odd){border-left:none}}
+/* ===== 정체성 바 (static, 증권·고급) ===== */
+.ident-strip{border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:linear-gradient(180deg,rgba(255,255,255,.014),transparent)}
+.ident-strip .is-row{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;padding:20px 0}
+.is-left{display:flex;align-items:center;gap:14px}
+.is-dot{width:2px;height:14px;border-radius:1px;background:var(--violet-2);flex:0 0 auto;opacity:.9}
+@keyframes mtpulse{0%,100%{opacity:1}50%{opacity:.35}}
+.is-ko{font-size:16px;color:#e6e5ec;letter-spacing:-.01em;font-weight:300}
+.is-ko b{font-weight:600;color:#fff}
+.is-right{display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:12px;letter-spacing:.2em}
+.is-right span{color:#cfcdd9}
+.is-right i{color:var(--faint);font-style:normal}
+@media(max-width:600px){.ident-strip .is-row{padding:16px 0;gap:12px}.is-ko{font-size:14px}.is-right{font-size:10.5px;gap:11px;letter-spacing:.14em}}
+/* ===== Company 헤더: 시그니엘 스카이라인 (흑백·저투명) ===== */
+.page-head{position:relative;overflow:hidden}
+.company-head{padding-bottom:44px;min-height:266px}
+.ph-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:url('img/skyline.jpg?v=2');background-size:cover;background-position:center 26%;filter:grayscale(100%) brightness(1.02) contrast(1.14);opacity:.36}
+.ph-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,2,3,.18) 0%,rgba(2,2,3,.06) 40%,rgba(2,2,3,.82) 90%,rgba(2,2,3,.98) 100%)}
+.company-head>.container{position:relative;z-index:2}
+@media(max-width:760px){.company-head{padding-bottom:60px}.ph-bg{background-position:center 42%}}
 </style>
 <div class="nav-wrap">
 <nav class="nav">
@@ -1109,7 +1140,8 @@ a.cap-row:hover .cr-t{color:var(--violet-2)}
 
 <!-- ===== SUB-PAGES (menu) ===== -->
 <div class="page" id="page-company">
-<header class="page-head">
+<header class="page-head company-head">
+<div class="ph-bg" aria-hidden="true"></div>
 <div class="container">
 <a class="back-home" href="#home">Home</a>
 <div class="ph-kicker">About</div>
