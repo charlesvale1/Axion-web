@@ -1056,6 +1056,10 @@ a.cap-row:hover .cr-t{color:var(--violet-2)}
 .ph-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,2,3,.18) 0%,rgba(2,2,3,.06) 40%,rgba(2,2,3,.82) 90%,rgba(2,2,3,.98) 100%)}
 .company-head>.container{position:relative;z-index:2}
 @media(max-width:760px){.company-head{padding-bottom:60px}.ph-bg{background-position:center 42%}}
+.footer-biz{display:flex;flex-wrap:wrap;gap:7px 24px;padding-top:26px;border-top:1px solid var(--line);margin-bottom:4px;font-size:12px;color:var(--faint);letter-spacing:.01em;line-height:1.7}
+.footer-biz b{color:#b6b4bd;font-weight:400}
+.footer-legal{border-top:none!important;padding-top:14px!important}
+@media(max-width:600px){.footer-biz{font-size:11.5px;gap:6px 16px}}
 </style>
 <div class="nav-wrap">
 <nav class="nav">
@@ -1517,13 +1521,20 @@ a.cap-row:hover .cr-t{color:var(--violet-2)}
 <div class="footer-brand">
 <a href="#home" class="logo footer-logo"><span class="logo-main">AXION</span><span class="logo-sub"><i>R</i><i>E</i><i>S</i><i>E</i><i>A</i><i>R</i><i>C</i><i>H</i></span></a>
 <p class="footer-tag">기업을 위한 퀀트·알고리즘 트레이딩 솔루션. 리서치부터 실행, 리스크 관리까지.</p>
-<div class="footer-addr"><div class="fa-k">Seoul&nbsp;&middot;&nbsp;Headquarters</div><address class="fa-v">300 Olympic-ro, Songpa-gu, Seoul</address></div>
+
 </div>
 <div class="footer-cols">
 <div class="fcol"><div class="fcol-h">Company</div><a href="#page-company">회사 소개</a><a href="#philosophy">철학 · 거버넌스</a></div>
 <div class="fcol"><div class="fcol-h">Business</div><a href="#page-strategy">전략 · 리서치</a><a href="#page-solutions">솔루션 · 마켓</a><a href="#page-technology">기술 · 리스크</a></div>
 <div class="fcol"><div class="fcol-h">Contact</div><a href="mailto:contact@axionresearch.com">contact@axionresearch.com</a><a href="#page-contact">파트너십 문의</a></div>
 </div>
+</div>
+<!-- TODO: 실제 법인 정보로 교체 (CEO·사업자번호 현재 더미) -->
+<div class="footer-biz">
+<span><b>AXION RESEARCH</b></span>
+<span>CEO <b>Hong Gildong</b></span>
+<span>Business Reg. No. <b>000-00-00000</b></span>
+<span>300 Olympic-ro, Songpa-gu, Seoul</span>
 </div>
 <div class="footer-legal">
 <div class="fl-info">© 2026 AXION RESEARCH. All rights reserved.</div>
