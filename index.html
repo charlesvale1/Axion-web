@@ -143,8 +143,19 @@ section[id]{scroll-margin-top:100px}
   cursor:pointer;transition:border-color .25s,color .25s;
 }
 .menu-btn:hover{border-color:var(--gold-soft);color:var(--gold-soft)}
-@media(min-width:901px){.menu-btn{display:none}}
-@media(max-width:900px){.nav-links{display:none}}
+.menu-btn{display:none}
+@media(max-width:900px){
+  .nav{height:auto;flex-wrap:wrap;padding-top:14px;gap:0}
+  .logo{padding-bottom:13px}
+  .nav-right{flex:1 0 100%}
+  .nav-links{
+    width:100%;justify-content:space-between;gap:16px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    padding:11px 0 13px;border-top:1px solid rgba(255,255,255,.12);
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:.74rem;font-weight:500;letter-spacing:.1em;white-space:nowrap;padding:2px 0;color:rgba(255,255,255,.92)}
+}
 .menu-btn .bars{width:16px;height:9px;position:relative;display:inline-block}
 .menu-btn .bars::before,.menu-btn .bars::after{content:"";position:absolute;left:0;width:16px;height:1px;background:currentColor}
 .menu-btn .bars::before{top:1px}.menu-btn .bars::after{top:8px}
@@ -520,8 +531,9 @@ a.cap-row:hover .cr-t{color:var(--gold)}
   .mo-grid{padding:0 24px}
   .nav{height:72px}
   .mo-head{height:72px}
-  .hero>.container{padding-top:120px}
+  .hero>.container{padding-top:160px}
   .hero{min-height:92vh}
+  .page-head{padding-top:170px}
   .press-row{grid-template-columns:1fr;gap:8px;padding:24px 0}
   .pr-meta{flex-direction:row;align-items:baseline;gap:14px}
   .pr-arrow{display:none}
@@ -563,6 +575,34 @@ a.cap-row:hover .cr-t{color:var(--gold)}
   .subhead{margin:44px 0 20px}
   }
 
+/* ===== mobile readability polish ===== */
+@media(max-width:600px){
+  .section-kicker,.hero-kicker,.ph-kicker,.pk,.mo-aside-kick{font-size:.7rem;letter-spacing:.14em}
+  .section-kicker::before,.hero-kicker::before,.ph-kicker::before,.pk::before{width:24px}
+  .hero-copy p{font-size:1.05rem;line-height:1.9}
+  .section-title{font-size:1.65rem;line-height:1.4}
+  .section-copy,.section-sub{font-size:1rem;line-height:1.85}
+  .cap-row .cr-t{font-size:1.3rem}
+  .cap-row .cr-d{font-size:1rem;line-height:1.8}
+  .pr-title{font-size:1.08rem}
+  .pr-src{font-size:.82rem}
+  .about-lead p{font-size:1.18rem}
+  .about-body p{font-size:1.02rem}
+  .about-facts .af .v{font-size:.95rem}
+  .statement .lead{font-size:1.32rem}
+  .pillars .pl h4{font-size:1.25rem}
+  .pillars .pl p{font-size:1rem}
+  .ph-sub{font-size:1rem}
+  .arch-t{font-size:1.2rem}
+  .arch-c p{font-size:.95rem}
+  .client-pill{font-size:.88rem;padding:10px 16px}
+  .office-card h3{font-size:1.35rem}
+  .office-addr{font-size:.98rem}
+  .contact-panel p{font-size:.98rem}
+  .footer-tag{font-size:.95rem}
+  .fcol a{font-size:.95rem}
+  .disclosures p{font-size:.88rem}
+}
 </style>
 </head>
 <body>
