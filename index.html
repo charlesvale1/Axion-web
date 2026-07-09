@@ -396,37 +396,32 @@ a.cap-row:hover .cr-t{color:var(--gold)}
 #contact-section{background:var(--paper)}
 
 /* ===== location / map ===== */
+#location{padding:90px 0}
+.loc-head{display:flex;justify-content:center;margin-bottom:2.6rem}
 .location-grid{
-  display:grid;grid-template-columns:4fr 7fr;min-height:480px;
-  box-shadow:0 30px 70px -30px rgba(20,24,29,.35);
+  display:grid;grid-template-columns:1fr 2fr;min-height:400px;
 }
 .office-card{
   background:var(--ink);color:var(--paper);
-  padding:56px 50px;display:flex;flex-direction:column;justify-content:center;
+  padding:48px 44px;display:flex;flex-direction:column;justify-content:center;
 }
 .office-card h3{
   font-family:var(--sans);color:var(--white);
-  font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.5rem;
+  font-size:1.5rem;font-weight:600;letter-spacing:-.01em;margin-bottom:1.4rem;
 }
 .office-addr{line-height:1.9;font-size:.96rem;color:rgba(255,255,255,.92)}
 .office-note{margin-top:.6rem;font-size:.82rem;color:rgba(255,255,255,.65)}
 .office-card .office-link{
   display:inline-flex;align-items:center;gap:10px;margin-top:2.4rem;align-self:flex-start;
-  font-size:.95rem;font-weight:600;color:var(--white);transition:color .25s;
+  font-size:.95rem;font-weight:600;color:var(--white);
+  padding-bottom:5px;border-bottom:1px solid rgba(213,191,149,.5);
+  transition:color .25s,border-color .25s;
 }
-.office-card .office-link:hover{color:var(--gold-soft)}
-.map-wrap{min-height:480px;background:#e8e8e6;position:relative;z-index:0;isolation:isolate}
+.office-card .office-link:hover{color:var(--gold-soft);border-color:var(--gold-soft)}
+.map-wrap{min-height:400px;background:#e8eaec;position:relative;z-index:0;isolation:isolate}
 .map-wrap .leaflet-container{height:100%;width:100%;font-family:var(--sans)}
 .map-wrap .leaflet-tile{filter:grayscale(1) contrast(1.02)}
-.axn-pin{position:relative;width:18px;height:18px}
-.axn-pin::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--ink);border:3px solid var(--gold)}
-.axn-pin::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid var(--gold);animation:pin-pulse 2.6s ease-out infinite}
-@keyframes pin-pulse{0%{transform:scale(.55);opacity:.9}70%{transform:scale(1.25);opacity:0}100%{opacity:0}}
-.axn-pin-label{
-  position:absolute;left:26px;top:-4px;white-space:nowrap;
-  font-size:.66rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--ink);background:rgba(255,255,255,.92);border:1px solid var(--gold);padding:4px 10px;
-}
+.axn-pin-svg{filter:drop-shadow(0 3px 6px rgba(16,22,32,.35))}
 @media(max-width:1000px){
   .location-grid{grid-template-columns:1fr}
   .map-wrap{min-height:380px}
@@ -974,18 +969,12 @@ a.cap-row:hover .cr-t{color:var(--gold)}
 </section>
 <section class="section" id="location">
 <div class="container">
-<div class="section-head reveal">
-<div>
-<div class="section-kicker">Office</div>
-<h2 class="section-title">오시는 길</h2>
-</div>
-</div>
+<div class="loc-head reveal"><div class="section-kicker">Our Location</div></div>
 <div class="location-grid reveal">
 <div class="office-card">
-<h3>AXION RESEARCH &mdash; Seoul</h3>
-<p class="office-addr">서울특별시 송파구 올림픽로 300<br>300 Olympic-ro, Songpa-gu, Seoul, Korea</p>
-<p class="office-note">잠실역 1·2번 출구 직결</p>
-<a class="office-link" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%86%A1%ED%8C%8C%EA%B5%AC%20%EC%98%AC%EB%A6%BC%ED%94%BD%EB%A1%9C%20300" target="_blank" rel="noopener">네이버 지도에서 보기 &rarr;</a>
+<h3>Seoul</h3>
+<p class="office-addr">Axion Research<br>서울특별시 송파구 올림픽로 300<br>300 Olympic-ro, Songpa-gu<br>Seoul, Republic of Korea</p>
+<a class="office-link" href="https://www.google.com/maps/search/?api=1&amp;query=37.5126,127.1025" target="_blank" rel="noopener">Open in Google Maps &rarr;</a>
 </div>
 <div class="map-wrap" id="mapWrap"></div>
 </div>
@@ -1105,7 +1094,8 @@ a.cap-row:hover .cr-t{color:var(--gold)}
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(m);
-    var icon = L.divIcon({className:'', html:'<div class="axn-pin"><span class="axn-pin-label">AXION RESEARCH</span></div>', iconSize:[18,18], iconAnchor:[9,9]});
+    var svg = '<svg class="axn-pin-svg" width="30" height="42" viewBox="0 0 30 42" xmlns="http://www.w3.org/2000/svg"><path d="M15 0C6.72 0 0 6.72 0 15c0 11.1 15 27 15 27s15-15.9 15-27C30 6.72 23.28 0 15 0z" fill="#101620"/><circle cx="15" cy="15" r="5.5" fill="#b3925a"/></svg>';
+    var icon = L.divIcon({className:'', html:svg, iconSize:[30,42], iconAnchor:[15,42]});
     L.marker(pos, {icon: icon}).addTo(m);
     setTimeout(function(){ m.invalidateSize(); }, 80);
   };
