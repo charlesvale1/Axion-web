@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AXION · 카드 등록 완료</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#101620;--paper:#f4f5f7;--gold:#b3925a;--gold-soft:#d5bf95;
+  --serif:'Cormorant Garamond','Georgia',serif;--sans:'Inter','Noto Sans KR',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--ink);color:var(--paper);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+.card{max-width:520px;width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(179,146,90,.3);border-radius:16px;padding:48px 42px;text-align:center}
+.mark{width:66px;height:66px;margin:0 auto 24px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center}
+.mark svg{width:34px;height:34px}
+h1{font-family:var(--serif);font-weight:600;font-size:2rem;color:#fff;margin-bottom:12px}
+.lead{color:rgba(244,245,247,.7);line-height:1.7;font-size:.95rem;margin-bottom:28px}
+.info{text-align:left;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px 20px;font-size:.85rem;margin-bottom:26px}
+.info .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);gap:16px}
+.info .row:last-child{border:0}
+.info .k{color:rgba(244,245,247,.5)}
+.info .v{color:#fff;font-weight:500;word-break:break-all;text-align:right}
+.note{font-size:.8rem;color:var(--gold-soft);background:rgba(179,146,90,.1);border-radius:8px;padding:12px 14px;line-height:1.6;margin-bottom:26px;text-align:left}
+.btn{display:inline-block;padding:14px 32px;border-radius:9px;background:var(--gold);color:var(--ink);font-weight:600;text-decoration:none;font-size:.92rem}
+.btn.ghost{background:transparent;border:1px solid rgba(179,146,90,.5);color:var(--gold-soft);margin-left:8px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="mark"><svg viewBox="0 0 24 24"><path fill="#101620" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div>
+  <h1>카드 등록이 완료됐어요</h1>
+  <p class="lead">정기결제(빌링) 카드 인증이 정상적으로 처리됐습니다.<br>매월 자동결제로 구독이 유지됩니다.</p>
+
+  <div class="info" id="info">
+    <div class="row"><span class="k">플랜</span><span class="v" id="vPlan">—</span></div>
+    <div class="row"><span class="k">월 결제금액</span><span class="v" id="vAmt">—</span></div>
+    <div class="row"><span class="k">인증키(authKey)</span><span class="v" id="vAuth">—</span></div>
+    <div class="row"><span class="k">회원식별키(customerKey)</span><span class="v" id="vCust">—</span></div>
+  </div>
+
+  <div class="note">
+    <b>테스트 모드 안내</b> — 이 화면은 카드 인증(빌링키 발급 직전)까지 완료된 상태입니다.
+    실제 월 자동결제는 백엔드에서 <code>authKey</code>로 빌링키를 발급한 뒤 진행됩니다. (심사 통과 후 연동)
+  </div>
+
+  <a class="btn" href="index.html">홈으로</a>
+  <a class="btn ghost" href="subscribe.html">구독 페이지로</a>
+</div>
+<script>
+const q = new URLSearchParams(location.search);
+const authKey = q.get('authKey');
+const customerKey = q.get('customerKey');
+document.getElementById('vAuth').textContent = authKey || '—';
+document.getElementById('vCust').textContent = customerKey || '—';
+try {
+  const p = JSON.parse(sessionStorage.getItem('axion_plan') || '{}');
+  if (p.name) document.getElementById('vPlan').textContent = p.name;
+  if (p.amt)  document.getElementById('vAmt').textContent = p.amt.toLocaleString('ko-KR') + '원 / 월';
+} catch(e){}
+</script>
+</body>
+</html>

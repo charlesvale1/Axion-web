@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AXION · 구독 결제</title>
+<script src="https://js.tosspayments.com/v2/standard"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=Noto+Serif+KR:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101620; --ink-2:#19212e; --ink-3:#222c3c;
+  --paper:#f4f5f7; --white:#ffffff;
+  --gold:#b3925a; --gold-soft:#d5bf95;
+  --line:rgba(179,146,90,.28);
+  --serif:'Cormorant Garamond','Noto Serif KR','Georgia',serif;
+  --sans:'Inter','Noto Sans KR','Apple SD Gothic Neo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;color:var(--ink);line-height:1.2}
+.eyebrow{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.hl{color:var(--gold)}
+
+/* 프리뷰 안내 배너 */
+.pv-note{background:#fff7e8;border-bottom:1px solid var(--line);color:#6b5628;font-size:.82rem;padding:10px 0;text-align:center}
+.pv-note b{color:#8a6d2f}
+
+/* ── 가격 섹션 (다크 밴드) ── */
+.pricing{background:var(--ink);color:var(--paper);padding:100px 0 110px;position:relative}
+.pricing .eyebrow{color:var(--gold-soft)}
+.pricing h2{color:#fff;font-size:clamp(2.1rem,4vw,3rem);margin:14px 0 12px}
+.pricing .lead{color:rgba(244,245,247,.6);font-size:1rem;max-width:640px;line-height:1.7}
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+.plan{border:1px solid var(--line);border-radius:14px;padding:34px 30px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0));display:flex;flex-direction:column;position:relative}
+.plan.featured{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset,0 24px 60px -30px rgba(179,146,90,.5)}
+.plan .tag{position:absolute;top:-12px;left:30px;background:var(--gold);color:var(--ink);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px}
+.plan .pname{font-family:var(--sans);font-size:.78rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft)}
+.plan .price{font-family:var(--serif);font-size:2.5rem;font-weight:600;color:#fff;margin:18px 0 2px;line-height:1;font-variant-numeric:tabular-nums}
+.plan .price em{font-style:normal;font-family:var(--sans);font-size:.95rem;color:rgba(244,245,247,.55);margin-left:4px}
+.plan .usdt{font-size:.78rem;color:rgba(244,245,247,.4);letter-spacing:.02em}
+.plan ul{list-style:none;margin:26px 0 30px;display:flex;flex-direction:column;gap:13px}
+.plan li{font-size:.9rem;color:rgba(244,245,247,.82);display:flex;gap:10px;line-height:1.45}
+.plan li::before{content:"";width:16px;height:16px;flex:none;margin-top:2px;background:var(--gold);-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/></svg>") center/contain no-repeat}
+.plan .cta{margin-top:auto;display:block;text-align:center;padding:14px;border-radius:9px;font-family:var(--sans);font-size:.9rem;font-weight:600;letter-spacing:.02em;cursor:pointer;border:1px solid var(--gold);background:transparent;color:var(--gold-soft);transition:.2s}
+.plan.featured .cta{background:var(--gold);color:var(--ink)}
+.plan .cta:hover{background:var(--gold);color:var(--ink)}
+
+/* 비교표 */
+.cmp-wrap{margin-top:64px;overflow-x:auto}
+table.cmp{width:100%;border-collapse:collapse;min-width:720px}
+table.cmp th,table.cmp td{padding:18px 20px;text-align:center;border:1px solid rgba(179,146,90,.18);font-size:.9rem}
+table.cmp thead th{font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft)}
+table.cmp tbody th{font-weight:600;color:var(--gold);font-family:var(--sans);font-size:.82rem;letter-spacing:.04em;text-align:center;white-space:nowrap}
+table.cmp td{color:rgba(244,245,247,.85)}
+table.cmp tr td:first-of-type{color:#fff}
+.cmp .row-price td{font-family:var(--serif);font-size:1.15rem;color:#fff;font-weight:600}
+
+/* ── 결제(체크아웃) 섹션 ── */
+.checkout{padding:96px 0}
+.checkout .eyebrow{color:var(--gold)}
+.checkout h2{font-size:clamp(1.9rem,3.4vw,2.6rem);margin:12px 0 10px}
+.checkout .lead{color:#4a5260;max-width:620px;line-height:1.7;font-size:.98rem}
+.co-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;margin-top:50px;align-items:start}
+@media(max-width:860px){.co-grid{grid-template-columns:1fr}}
+
+.co-card{background:#fff;border:1px solid #e5e2da;border-radius:14px;padding:34px 32px}
+.co-card h3{font-size:1.4rem;margin-bottom:6px}
+.field{margin-top:20px}
+.field label{display:block;font-size:.8rem;font-weight:600;color:#3b4350;margin-bottom:8px;letter-spacing:.02em}
+.seg{display:flex;gap:10px;flex-wrap:wrap}
+.seg button{flex:1;min-width:120px;padding:14px;border:1px solid #d9d5cc;background:#faf7f2;border-radius:9px;font-family:var(--sans);font-size:.9rem;font-weight:500;color:#2a3038;cursor:pointer;transition:.15s;text-align:left}
+.seg button .pp{display:block;font-weight:600;color:var(--gold);margin-top:4px;font-size:.85rem}
+.seg button.on{border-color:var(--gold);background:#fbf4e8;box-shadow:0 0 0 1px var(--gold) inset}
+.pay-methods{display:flex;flex-direction:column;gap:10px}
+.pm{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid #d9d5cc;border-radius:9px;cursor:pointer;font-size:.9rem;color:#2a3038}
+.pm.on{border-color:var(--gold);background:#fbf4e8;box-shadow:0 0 0 1px var(--gold) inset}
+.pm input{accent-color:var(--gold);width:16px;height:16px}
+.pm .sub{color:#8a8578;font-size:.78rem;margin-left:auto}
+.agree{margin-top:22px;font-size:.82rem;color:#4a5260}
+.agree label{display:flex;gap:9px;align-items:flex-start;margin-top:9px;cursor:pointer;line-height:1.5}
+.agree input{accent-color:var(--gold);margin-top:2px}
+.agree a{color:var(--gold);text-decoration:underline}
+.paybtn{margin-top:24px;width:100%;padding:17px;border:none;border-radius:10px;background:var(--ink);color:#fff;font-family:var(--sans);font-size:1rem;font-weight:600;cursor:pointer;letter-spacing:.02em;transition:.2s}
+.paybtn:hover{background:#1d2634}
+.paybtn:disabled{opacity:.4;cursor:not-allowed}
+.paybtn .amt{color:var(--gold-soft)}
+
+/* 우측 요약 + 심사요건 */
+.summary{background:var(--ink);color:var(--paper);border-radius:14px;padding:30px 30px 34px}
+.summary h4{color:#fff;font-size:1.2rem;margin-bottom:18px}
+.sum-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:.9rem;color:rgba(244,245,247,.75)}
+.sum-row b{color:#fff;font-weight:600}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px}
+.sum-total span{font-size:.85rem;color:rgba(244,245,247,.6)}
+.sum-total b{font-family:var(--serif);font-size:1.9rem;color:var(--gold-soft);font-weight:600}
+.sum-total b em{font-style:normal;font-size:.9rem;font-family:var(--sans);color:rgba(244,245,247,.55)}
+
+.policy{margin-top:26px;background:#fff;border:1px solid #e5e2da;border-radius:14px;padding:28px 30px}
+.policy h4{font-size:1.15rem;margin-bottom:14px}
+.policy dl{font-size:.86rem;line-height:1.6}
+.policy dt{font-weight:600;color:var(--gold);margin-top:14px;letter-spacing:.02em}
+.policy dt:first-child{margin-top:0}
+.policy dd{color:#4a5260;margin-top:4px}
+
+/* 사업자정보 푸터 */
+.bizfoot{background:var(--ink-2);color:rgba(244,245,247,.6);padding:40px 0;font-size:.82rem;line-height:1.9}
+.bizfoot .container{display:flex;flex-wrap:wrap;gap:8px 26px}
+.bizfoot b{color:rgba(244,245,247,.9);font-weight:600}
+.bizfoot .todo{color:#e0a94b}
+.sec-head{text-align:center;max-width:720px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<div class="pv-note">🔒 <b>테스트 모드</b> — 현재 토스페이먼츠 <b>테스트 결제창</b>이 연동되어 있습니다. 실제 청구는 발생하지 않으며, 심사 완료 후 실결제로 전환됩니다.</div>
+
+<header style="background:var(--ink);border-bottom:1px solid rgba(179,146,90,.18)">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;padding-bottom:20px">
+    <a href="index.html" style="text-decoration:none;display:inline-flex;flex-direction:column;line-height:1">
+      <span style="font-family:var(--serif);font-weight:600;font-size:1.5rem;letter-spacing:.34em;margin-right:-.34em;color:#fff">AXION</span>
+      <span style="display:flex;justify-content:space-between;width:100%;margin-top:7px;font-family:var(--sans);font-size:.54rem;font-weight:500;letter-spacing:0;text-transform:uppercase;color:var(--gold-soft)"><i style="font-style:normal">R</i><i style="font-style:normal">E</i><i style="font-style:normal">S</i><i style="font-style:normal">E</i><i style="font-style:normal">A</i><i style="font-style:normal">R</i><i style="font-style:normal">C</i><i style="font-style:normal">H</i></span>
+    </a>
+    <a href="index.html" style="font-family:var(--sans);font-size:.8rem;font-weight:500;letter-spacing:.02em;color:var(--gold-soft);text-decoration:none">← 홈으로</a>
+  </div>
+</header>
+
+<!-- ══════════ 요금제 ══════════ -->
+<section class="pricing">
+  <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow">Pricing</div>
+      <h2>세 가지 <span class="hl">플랜</span></h2>
+      <p class="lead" style="margin:12px auto 0">필요한 관리 규모와 맞춤 개발 수준에 따라 선택할 수 있습니다. 모든 플랜은 <b style="color:#fff">월 정기결제(구독)</b> 방식으로 제공됩니다.</p>
+    </div>
+
+    <div class="plan-grid">
+      <div class="plan">
+        <div class="pname">Starter</div>
+        <div class="price">1,500,000<em>원 / 월</em></div>
+        <ul>
+          <li>고객관리 솔루션 전체 기능</li>
+          <li>관리 고객 수 최대 100</li>
+          <li>기본 운영 대시보드</li>
+          <li>기본 기술지원</li>
+        </ul>
+        <button class="cta" onclick="pick('starter')">이 플랜 구독하기</button>
+      </div>
+
+      <div class="plan featured">
+        <div class="tag">가장 인기</div>
+        <div class="pname">Business</div>
+        <div class="price">3,000,000<em>원 / 월</em></div>
+        <ul>
+          <li>전체 기능 + 맞춤 설정</li>
+          <li>관리 고객 수 최대 1,000</li>
+          <li>전체 운영 대시보드</li>
+          <li>우선 기술지원</li>
+        </ul>
+        <button class="cta" onclick="pick('business')">이 플랜 구독하기</button>
+      </div>
+
+      <div class="plan">
+        <div class="pname">Enterprise</div>
+        <div class="price">5,000,000<em>원 / 월</em></div>
+        <ul>
+          <li>전체 기능 + 맞춤 설정</li>
+          <li>맞춤 개발 월 1회</li>
+          <li>관리 고객 수 3,000 이상 협의</li>
+          <li>확장 운영 대시보드 · 전담 지원</li>
+        </ul>
+        <button class="cta" onclick="pick('enterprise')">도입 문의 / 구독</button>
+      </div>
+    </div>
+
+    <!-- 비교표 (리워딩 완료: EA → 고객관리 솔루션) -->
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>구분</th><th>Starter</th><th>Business</th><th>Enterprise</th></tr>
+        </thead>
+        <tbody>
+          <tr class="row-price"><th>월 구독료</th><td>1,500,000원</td><td>3,000,000원</td><td>5,000,000원</td></tr>
+          <tr><th>솔루션 제공</th><td>전체 기능 제공</td><td>전체 기능 + 맞춤 설정</td><td>전체 기능 + 맞춤 설정</td></tr>
+          <tr><th>맞춤 개발</th><td>–</td><td>–</td><td>월 1회</td></tr>
+          <tr><th>관리 고객 수</th><td>최대 100</td><td>최대 1,000</td><td>3,000 이상 협의</td></tr>
+          <tr><th>운영 대시보드</th><td>기본 기능</td><td>전체 기능</td><td>확장 운영 기능</td></tr>
+          <tr><th>기술지원</th><td>기본 지원</td><td>우선 지원</td><td>전담 지원</td></tr>
+          <tr><th>권장 활용</th><td>초기 도입 · 테스트</td><td>개인고객 관리 · 구독</td><td>지사 · 파트너 운영</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 결제(체크아웃) ══════════ -->
+<section class="checkout">
+  <div class="container">
+    <div class="eyebrow">Checkout</div>
+    <h2>구독 결제</h2>
+    <p class="lead">월 정기결제(자동 갱신)로 진행됩니다. 첫 결제 후 매월 같은 날 자동으로 결제되며, 언제든 해지할 수 있습니다.</p>
+
+    <div class="co-grid">
+      <!-- 좌: 결제 폼 -->
+      <div class="co-card">
+        <h3>결제 정보</h3>
+
+        <div class="field">
+          <label>플랜 선택</label>
+          <div class="seg" id="planSeg">
+            <button data-plan="starter" onclick="pick('starter')">Starter<span class="pp">1,500,000원/월</span></button>
+            <button data-plan="business" class="on" onclick="pick('business')">Business<span class="pp">3,000,000원/월</span></button>
+            <button data-plan="enterprise" onclick="pick('enterprise')">Enterprise<span class="pp">5,000,000원/월</span></button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>결제 수단</label>
+          <div class="pay-methods">
+            <label class="pm on"><input type="radio" name="pm" checked>신용/체크카드 정기결제(빌링)<span class="sub">매월 자동결제</span></label>
+            <label class="pm"><input type="radio" name="pm">계좌이체 · 세금계산서<span class="sub">법인 구매 시</span></label>
+          </div>
+        </div>
+
+        <div class="agree">
+          <label><input type="checkbox" id="ag1" onchange="chk()"><span>[필수] <a href="#">이용약관</a> 및 <a href="#">정기결제 유의사항</a>에 동의합니다.</span></label>
+          <label><input type="checkbox" id="ag2" onchange="chk()"><span>[필수] <a href="#">개인정보 수집·이용</a> 및 <a href="#">환불정책</a>을 확인했습니다.</span></label>
+        </div>
+
+        <button class="paybtn" id="payBtn" disabled onclick="pay()">
+          <span id="payLabel">월 <span class="amt">3,000,000원</span> 정기결제 시작</span>
+        </button>
+      </div>
+
+      <!-- 우: 요약 + 정책 -->
+      <div>
+        <div class="summary">
+          <h4>주문 요약</h4>
+          <div class="sum-row"><span>플랜</span><b id="sumPlan">Business</b></div>
+          <div class="sum-row"><span>결제 주기</span><b>매월 (자동 갱신)</b></div>
+          <div class="sum-row"><span>서비스 제공기간</span><b>결제일부터 1개월</b></div>
+          <div class="sum-total"><span>월 결제금액</span><b id="sumAmt">3,000,000<em>원</em></b></div>
+        </div>
+
+        <div class="policy">
+          <h4>서비스 · 환불 정책 <span style="font-size:.7rem;color:#b8b1a2;font-weight:400">(토스 심사 필수)</span></h4>
+          <dl>
+            <dt>서비스 제공기간</dt>
+            <dd>결제일로부터 <b>1개월</b>이며 매월 자동 갱신됩니다. (1년 초과 없음)</dd>
+            <dt>구독 해지</dt>
+            <dd>마이페이지 또는 고객센터에서 언제든 해지할 수 있으며, 해지 시 다음 결제일부터 청구가 중단됩니다.</dd>
+            <dt>환불 규정</dt>
+            <dd>결제 후 <b>서비스 미사용</b> 상태에서 7일 이내 요청 시 전액 환불됩니다. 사용을 개시한 경우 이용일수를 제외한 잔여분을 일할 계산하여 환불합니다.</dd>
+            <dt>고객센터</dt>
+            <dd>☎ 010-5939-2356 · contact@axionresearch.com</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 사업자정보 (심사 필수, 하단 고정) ══════════ -->
+<footer class="bizfoot">
+  <div class="container">
+    <span><b>상호명</b> 주식회사 어게인스트림 <span style="color:rgba(244,245,247,.4)">(서비스명 : AXION)</span></span>
+    <span><b>대표자명</b> 정건우</span>
+    <span><b>사업자등록번호</b> 251-88-01774</span>
+    <span><b>통신판매업신고</b> <span class="todo">신고 예정</span></span>
+    <span style="flex-basis:100%"><b>사업장 주소</b> 서울특별시 구로구 구로중앙로 207, 비1층 비36-제이11호(구로동, 오퍼스1)</span>
+    <span><b>유선번호</b> 010-5939-2356</span>
+    <span><b>이메일</b> contact@axionresearch.com</span>
+    <span style="flex-basis:100%;color:rgba(244,245,247,.4);margin-top:6px">© 2026 주식회사 어게인스트림. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+const PLANS = {
+  starter:   {name:'Starter',    amt:1500000},
+  business:  {name:'Business',   amt:3000000},
+  enterprise:{name:'Enterprise', amt:5000000},
+};
+let cur = 'business';
+const won = n => n.toLocaleString('ko-KR');
+
+function pick(p){
+  cur = p;
+  const {name, amt} = PLANS[p];
+  document.querySelectorAll('#planSeg button').forEach(b=>b.classList.toggle('on', b.dataset.plan===p));
+  document.getElementById('sumPlan').textContent = name;
+  document.getElementById('sumAmt').innerHTML = won(amt) + '<em>원</em>';
+  document.getElementById('payLabel').innerHTML = '월 <span class="amt">'+won(amt)+'원</span> 정기결제 시작';
+  document.querySelector('.checkout').scrollIntoView({behavior:'smooth'});
+}
+function chk(){
+  const ok = document.getElementById('ag1').checked && document.getElementById('ag2').checked;
+  document.getElementById('payBtn').disabled = !ok;
+}
+/* ─────────────────────────────────────────────────────────
+   토스페이먼츠 빌링(정기결제) 결제창 연동
+   ⚠️ CLIENT_KEY 를 토스 대시보드의 '테스트 클라이언트 키'로 교체하세요.
+      (개발자센터 → 내 개발정보 → 클라이언트 키 test_ck_...)
+   흐름: ① requestBillingAuth 로 카드 등록(빌링키 인증)
+         → ② successUrl 로 authKey·customerKey 전달
+         → ③ [백엔드] authKey 로 billingKey 발급 후 매월 자동결제
+   ───────────────────────────────────────────────────────── */
+const CLIENT_KEY = "test_ck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; // TODO: 실제 테스트 클라이언트 키로 교체
+const tossPayments = TossPayments(CLIENT_KEY);
+
+function customerKey(){
+  // 회원 식별키 (실제로는 로그인한 회원 ID 사용). 데모용 랜덤 생성.
+  try { return "cust_" + crypto.randomUUID(); }
+  catch(e){ return "cust_" + Date.now() + "_" + Math.floor(Math.random()*1e6); }
+}
+
+async function pay(){
+  const {name, amt} = PLANS[cur];
+  const ck = customerKey();
+  // 선택한 플랜을 성공 페이지에서 표시하기 위해 저장
+  try { sessionStorage.setItem('axion_plan', JSON.stringify({plan:cur, name, amt, customerKey:ck})); } catch(e){}
+  const origin = location.origin === "null" ? "" : location.origin;
+  const base = location.href.replace(/[^/]*$/, ""); // 현재 폴더 경로
+  try {
+    const payment = tossPayments.payment({ customerKey: ck });
+    await payment.requestBillingAuth({
+      method: "CARD",
+      successUrl: base + "subscribe-success.html",
+      failUrl:    base + "subscribe-fail.html",
+      customerName: "AXION 구독자",
+    });
+  } catch (err) {
+    if (err && err.code === "USER_CANCEL") return; // 사용자가 창을 닫음
+    alert("결제창을 여는 중 오류가 발생했습니다.\n\n" + (err && err.message ? err.message : err) +
+          "\n\n※ CLIENT_KEY 가 올바른 토스 클라이언트 키인지 확인하세요.");
+  }
+}
+</script>
+</body>
+</html>
