@@ -11,17 +11,17 @@
 <meta property="og:url" content="https://axionresearch.co.kr/" />
 <meta property="og:title" content="AXION RESEARCH — 기업을 위한 퀀트·알고리즘 트레이딩 솔루션" />
 <meta property="og:description" content="검증되지 않은 전략은, 운용하지 않습니다. 글로벌 시장의 가격 비효율을 분석해 고객사 운용 목적에 맞춘 알고리즘 트레이딩 솔루션을 개발합니다." />
-<meta property="og:image" content="https://axionresearch.co.kr/og-image.png?v=2" />
+<meta property="og:image" content="https://axionresearch.co.kr/og-image.png?v=3" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="AXION RESEARCH — 기업을 위한 퀀트·알고리즘 트레이딩 솔루션" />
 <meta name="twitter:description" content="검증되지 않은 전략은, 운용하지 않습니다." />
-<meta name="twitter:image" content="https://axionresearch.co.kr/og-image.png?v=2" />
+<meta name="twitter:image" content="https://axionresearch.co.kr/og-image.png?v=3" />
 <link rel="canonical" href="https://axionresearch.co.kr/" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-<link rel="icon" type="image/png" sizes="256x256" href="/favicon-256.png" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+<link rel="icon" type="image/png" sizes="256x256" href="/favicon-256.png?v=2" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -121,10 +121,8 @@ section[id]{scroll-margin-top:100px}
 }
 .nav-wrap.scrolled{background:rgba(20,24,29,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:transparent}
 .nav{max-width:var(--maxw);margin:0 auto;padding:0 32px;height:84px;display:flex;align-items:center;justify-content:space-between;gap:32px}
-.logo{display:inline-flex;flex-direction:column;width:max-content;line-height:1}
-.logo-main{font-family:'Cormorant Garamond','Georgia',serif;font-size:1.7rem;font-weight:600;letter-spacing:.34em;margin-right:-.34em;color:var(--white)}
-.logo-sub{display:flex;justify-content:space-between;width:100%;margin-top:9px;font-family:var(--sans);font-size:.62rem;font-weight:500;letter-spacing:0;text-transform:uppercase;color:var(--gold-soft)}
-.logo-sub i{font-style:normal}
+.logo{display:inline-flex;align-items:center;width:max-content;line-height:0}
+.logo img{display:block;width:128px;height:auto;transform:translateY(-9%)} /* 상단 잔광 여백만큼 광학 보정 */
 .nav-right{display:flex;align-items:center;gap:34px}
 .nav-links{display:flex;align-items:center;gap:34px}
 .nav-links a{
@@ -146,7 +144,8 @@ section[id]{scroll-margin-top:100px}
 .menu-btn{display:none}
 @media(max-width:900px){
   .nav{height:auto;flex-wrap:wrap;padding-top:14px;gap:0}
-  .logo{padding-bottom:13px}
+  .logo{padding-bottom:19px}
+  .logo img{width:106px}
   .nav-right{flex:1 0 100%}
   .nav-links{
     width:100%;justify-content:space-between;gap:16px;
@@ -504,6 +503,7 @@ a.cap-row:hover .cr-t{color:var(--gold)}
 .footer{background:var(--ink);color:rgba(247,245,240,.72);padding:80px 0 40px;border:none}
 .footer-top{display:grid;grid-template-columns:1.3fr 2fr;gap:48px;padding-bottom:52px;border-bottom:1px solid var(--line-dark)}
 .footer-logo{margin:0}
+.footer-logo img{width:156px}
 .footer-tag{margin-top:20px;color:rgba(247,245,240,.62);font-size:.92rem;max-width:320px;line-height:1.9}
 .footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .fcol{display:flex;flex-direction:column;gap:13px}
@@ -629,7 +629,7 @@ a.cap-row:hover .cr-t{color:var(--gold)}
 
 <div class="nav-wrap">
 <nav class="nav">
-<a href="#home" class="logo"><span class="logo-main">AXION</span><span class="logo-sub"><i>R</i><i>E</i><i>S</i><i>E</i><i>A</i><i>R</i><i>C</i><i>H</i></span></a>
+<a href="#home" class="logo"><img src="logos/axion-wordmark.png?v=1" alt="AXION RESEARCH" width="600" height="266" decoding="async"></a>
 <div class="nav-right">
 <div class="nav-links">
 <a href="#page-company">Company</a>
@@ -1108,7 +1108,7 @@ a.cap-row:hover .cr-t{color:var(--gold)}
 <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
 <div class="mo-grid">
 <div class="mo-head">
-<a href="#home" class="logo"><span class="logo-main">AXION</span><span class="logo-sub"><i>R</i><i>E</i><i>S</i><i>E</i><i>A</i><i>R</i><i>C</i><i>H</i></span></a>
+<a href="#home" class="logo"><img src="logos/axion-wordmark.png?v=1" alt="AXION RESEARCH" width="600" height="266" decoding="async"></a>
 <button class="mo-close" id="menuClose" aria-label="Close menu"><span class="mo-close-t">Close</span><span class="mo-close-x">&times;</span></button>
 </div>
 <div class="mo-body">
@@ -1137,7 +1137,7 @@ a.cap-row:hover .cr-t{color:var(--gold)}
 <div class="container">
 <div class="footer-top">
 <div class="footer-brand">
-<a href="#home" class="logo footer-logo"><span class="logo-main">AXION</span><span class="logo-sub"><i>R</i><i>E</i><i>S</i><i>E</i><i>A</i><i>R</i><i>C</i><i>H</i></span></a>
+<a href="#home" class="logo footer-logo"><img src="logos/axion-wordmark.png?v=1" alt="AXION RESEARCH" width="600" height="266" loading="lazy" decoding="async"></a>
 <p class="footer-tag">기업을 위한 퀀트·알고리즘 트레이딩 솔루션. 리서치부터 실행, 리스크 관리까지.</p>
 
 </div>
