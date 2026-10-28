@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a0e15">
+<title>AUTOPILOT v8 · AXION RESEARCH</title>
+<link rel="icon" href="https://axionresearch.co.kr/favicon-32.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="https://axionresearch.co.kr/apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Entry page for the AUTOPILOT pages, in the AXION homepage hero style: ink,
+   a black-and-white trading-room photo, champagne gold, serif headline.
+   The page behind it is AES-GCM encrypted with a key derived from the code. */
+#gate{--ink:#0a0e15;--ink-2:#101620;--gold:#b3925a;--gold-soft:#d5bf95;--fg:#f4f5f7;--fg-2:#d3d8df;--mute:#9aa3b0;--line:rgba(255,255,255,.14);--loss:#ff8a78;--ok:#94d4ac;
+  position:fixed;inset:0;z-index:2147483647;overflow-y:auto;overflow-x:hidden;background:var(--ink);color:var(--fg);
+  font:16px/1.75 Inter,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;font-variant-numeric:lining-nums;
+  transition:opacity .6s ease,visibility .6s}
+#gate *{box-sizing:border-box;margin:0;padding:0}
+#gate.leave{opacity:0;visibility:hidden}
+
+/* backdrop */
+#gate .bg{position:fixed;inset:0;background:url('/autopilot/gate-bg.jpg') center/cover no-repeat;filter:grayscale(100%) contrast(1.05);opacity:.32;animation:g-zoom 24s ease-out both}
+#gate .veil{position:fixed;inset:0;background:
+  radial-gradient(120% 80% at 85% 0%,rgba(179,146,90,.14),transparent 55%),
+  linear-gradient(180deg,rgba(10,14,21,.55) 0%,rgba(10,14,21,.35) 35%,rgba(10,14,21,.92) 100%),
+  linear-gradient(100deg,rgba(10,14,21,.9) 0%,rgba(10,14,21,.45) 60%,rgba(10,14,21,.2) 100%)}
+@keyframes g-zoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+
+/* frame */
+#gate .shell{position:relative;min-height:100dvh;display:flex;flex-direction:column;max-width:1240px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-left)) 0 max(20px,env(safe-area-inset-right))}
+#gate .top{display:flex;align-items:center;justify-content:space-between;padding:max(env(safe-area-inset-top),18px) 0 18px;border-bottom:1px solid var(--line)}
+#gate .top img{display:block;width:104px;height:auto;transform:translateY(-8%)}
+#gate .badge{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;font-weight:600;letter-spacing:.26em;color:var(--gold-soft);text-transform:uppercase}
+#gate .badge svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6}
+#gate .body{flex:1;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,440px);gap:72px;align-items:center;padding:64px 0}
+
+/* message */
+#gate .k{display:inline-flex;align-items:center;gap:14px;font-size:.74rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-soft)}
+#gate .k::before{content:"";width:44px;height:1px;background:var(--gold)}
+#gate h1{margin-top:26px;font:600 clamp(2.3rem,4.6vw,3.9rem)/1.22 "Cormorant Garamond","Noto Serif KR",Georgia,serif;letter-spacing:-.015em;font-variant-numeric:lining-nums;color:#fff;text-shadow:0 2px 28px rgba(10,13,18,.6)}
+#gate h1 span{color:var(--gold-soft)}
+#gate .rule{width:56px;height:1px;background:var(--gold);margin:30px 0 26px}
+#gate .lead{max-width:520px;font-size:1.06rem;line-height:1.9;color:var(--fg-2)}
+#gate .trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:48px;border-top:1px solid rgba(255,255,255,.3);max-width:560px}
+#gate .trust div{padding:18px 16px 4px 0}
+#gate .trust div+div{padding-left:18px;border-left:1px solid var(--line)}
+#gate .trust svg{width:20px;height:20px;stroke:var(--gold-soft);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#gate .trust b{display:block;margin-top:10px;font-size:.9rem;font-weight:600;color:#fff;line-height:1.4}
+#gate .trust span{display:block;margin-top:2px;font-size:.78rem;color:var(--mute);line-height:1.5}
+
+/* card */
+#gate .card{position:relative;background:linear-gradient(180deg,rgba(22,30,43,.82),rgba(16,22,32,.86));border:1px solid rgba(213,191,149,.28);padding:40px 36px 34px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 40px 90px -40px rgba(0,0,0,.8)}
+#gate .card::before{content:"";position:absolute;left:-1px;top:-1px;width:64px;height:2px;background:var(--gold-soft)}
+#gate .card h2{font:600 1.7rem/1.3 "Cormorant Garamond","Noto Serif KR",serif;color:#fff}
+#gate .card .sub{margin-top:8px;font-size:.92rem;color:var(--fg-2);line-height:1.7}
+#gate form{margin-top:30px}
+#gate label{display:block;font-size:.7rem;font-weight:600;letter-spacing:.24em;color:var(--gold-soft);text-transform:uppercase}
+#gate .field{position:relative;margin-top:10px;border-bottom:1px solid rgba(255,255,255,.35);transition:border-color .25s}
+#gate .field::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--gold-soft);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+#gate .field:focus-within::after{transform:scaleX(1)}
+#gate .field.bad{border-color:var(--loss)}
+#gate .field.bad::after{background:var(--loss);transform:scaleX(1)}
+#gate input{width:100%;height:60px;padding:0 48px 0 0;border:0;background:transparent;color:#fff;font:600 1.35rem/1 "JetBrains Mono",ui-monospace,Menlo,monospace;letter-spacing:.32em;outline:none;caret-color:var(--gold-soft)}
+#gate input::placeholder{font:400 .98rem/1 Inter,"Noto Sans KR",sans-serif;letter-spacing:.02em;color:rgba(255,255,255,.42)}
+#gate .eye{position:absolute;right:0;top:50%;transform:translateY(-50%);width:40px;height:40px;display:grid;place-items:center;border:0;background:transparent;color:var(--mute);cursor:pointer}
+#gate .eye:hover{color:#fff}
+#gate .eye svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#gate .msg{min-height:24px;margin-top:10px;font-size:.88rem;color:var(--loss)}
+#gate .go{position:relative;overflow:hidden;margin-top:14px;width:100%;height:58px;display:flex;align-items:center;justify-content:center;gap:12px;border:0;background:var(--gold-soft);color:var(--ink-2);font:700 1.02rem/1 Inter,"Noto Sans KR",sans-serif;letter-spacing:.04em;cursor:pointer;transition:background .25s,color .25s}
+#gate .go:hover{background:#e3d3b2}
+#gate .go:disabled{cursor:default}
+#gate .go .arr{transition:transform .25s}
+#gate .go:hover .arr{transform:translateX(4px)}
+#gate .go.busy::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:40%;background:var(--ink-2);animation:g-load 1s ease-in-out infinite}
+#gate .go.ok{background:var(--ok);color:var(--ink-2)}
+@keyframes g-load{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+#gate .help{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:.86rem;color:var(--mute)}
+#gate .help a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(213,191,149,.45);padding-bottom:1px}
+#gate .help a:hover{color:#fff;border-color:#fff}
+#gate .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:20px 0 max(env(safe-area-inset-bottom),22px);border-top:1px solid var(--line);font-size:.76rem;letter-spacing:.06em;color:var(--mute)}
+
+/* motion */
+#gate .in{opacity:0;transform:translateY(18px);animation:g-in .8s cubic-bezier(.2,.8,.2,1) forwards}
+#gate .d1{animation-delay:.05s}#gate .d2{animation-delay:.15s}#gate .d3{animation-delay:.25s}#gate .d4{animation-delay:.35s}#gate .d5{animation-delay:.45s}
+@keyframes g-in{to{opacity:1;transform:none}}
+#gate .shake{animation:g-shake .42s cubic-bezier(.36,.07,.19,.97)}
+@keyframes g-shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-6px)}40%,60%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){#gate .bg,#gate .in,#gate .shake,#gate .go.busy::after{animation:none}#gate .in{opacity:1;transform:none}}
+
+/* opening an already-unlocked browser: logo splash only */
+#gate .splash{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+#gate .splash img{width:132px;height:auto}
+#gate .splash i{display:block;width:120px;height:1px;background:rgba(213,191,149,.25);position:relative;overflow:hidden}
+#gate .splash i::after{content:"";position:absolute;inset:0;width:40%;background:var(--gold-soft);animation:g-load 1.1s ease-in-out infinite}
+#gate[data-state="checking"] .shell{display:none}
+#gate[data-state="checking"] .splash{display:flex}
+
+@media (max-width:960px){
+  /* One column: message, then the code card, then the trust row. */
+  #gate .body{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:44px 0 40px}
+  #gate .msg-col{display:contents}
+  #gate .card{order:5;margin-top:36px;max-width:520px;width:100%}
+  #gate .trust{order:6;margin-top:36px}
+}
+@media (max-width:560px){
+  #gate .top img{width:92px}
+  #gate .badge{font-size:.62rem;letter-spacing:.18em}
+  #gate .body{padding:32px 0 32px}
+  #gate h1{font-size:2.15rem;line-height:1.28;margin-top:20px}
+  #gate .rule{margin:24px 0 20px}
+  #gate .lead{font-size:1rem}
+  #gate .card{padding:30px 22px 26px}
+  #gate .card h2{font-size:1.5rem}
+  #gate input{font-size:1.2rem;letter-spacing:.26em}
+  #gate .card{margin-top:30px}
+  #gate .trust{margin-top:30px}
+  #gate .trust div{padding-right:8px}
+  #gate .trust div+div{padding-left:12px}
+  #gate .trust b{font-size:.84rem}
+  #gate .trust span{font-size:.72rem}
+  #gate .k{font-size:.66rem;letter-spacing:.16em;gap:10px}
+  #gate .k::before{width:24px}
+}
+</style>
+</head>
+<body style="margin:0;background:#0a0e15">
+<div id="gate" data-state="checking">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+
+  <div class="splash" role="status" aria-label="불러오는 중">
+    <img src="/autopilot/axion-wordmark.png" alt="AXION RESEARCH" width="132" height="58">
+    <i aria-hidden="true"></i>
+  </div>
+
+  <div class="shell">
+    <header class="top in d1">
+      <img src="/autopilot/axion-wordmark.png" alt="AXION RESEARCH" width="104" height="46">
+      <span class="badge"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="9" width="12" height="8"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9"/></svg>Private Access</span>
+    </header>
+
+    <main class="body">
+      <section class="msg-col">
+        <p class="k in d1">AUTOPILOT v8 · Invitation Only</p>
+        <h1 class="in d2">기관이 쓰는 엔진을,<br><span>내 계좌에.</span></h1>
+        <div class="rule in d3" aria-hidden="true"></div>
+        <p class="lead in d3">AUTOPILOT v8 설명서와 1시간 모의투자는 접속 코드를 받은 분께만 공개됩니다. 담당자에게 안내받은 코드를 입력해 주세요.</p>
+        <div class="trust in d5">
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4v5c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><b>암호화 보호</b><span>코드 없이는 내용을 열 수 없습니다</span></div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .7 3 2.6 3 6"/></svg><b>담당자 발급</b><span>안내받은 분께만 드리는 코드</span></div>
+          <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="1.5"/><path d="M10.5 18.5h3"/></svg><b>기기별 1회</b><span>한 번 입력하면 다시 묻지 않습니다</span></div>
+        </div>
+      </section>
+
+      <section class="card in d4" aria-labelledby="gate-title">
+        <h2 id="gate-title">접속 코드 입력</h2>
+        <p class="sub">코드를 입력하면 설명서와 모의투자가 함께 열립니다.</p>
+        <form id="gate-form" novalidate>
+          <label for="gate-code">Access Code</label>
+          <div class="field" id="gate-field">
+            <input id="gate-code" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="코드를 입력하세요" aria-describedby="gate-err">
+            <button type="button" class="eye" id="gate-eye" aria-label="코드 보기" aria-pressed="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <p class="msg" id="gate-err" role="alert" aria-live="assertive"></p>
+          <button type="submit" class="go" id="gate-btn"><span id="gate-btn-t">입장하기</span><span class="arr" aria-hidden="true">→</span></button>
+        </form>
+        <div class="help"><span>코드가 없으신가요?</span><a href="https://axionresearch.co.kr/#page-contact" target="_blank" rel="noopener">담당자에게 문의하기 ↗</a></div>
+      </section>
+    </main>
+
+    <footer class="foot"><span>© 2026 AXION RESEARCH</span><span>axionresearch.co.kr</span></footer>
+  </div>
+</div>
+<div id="root"></div>
+<script>
+(function () {
+  var MODE = 'document'          // 'document': replace this page · 'module': run as an app bundle
+  var SRC = '/autopilot/manual.enc'            // encrypted payload: 12-byte IV + AES-GCM ciphertext
+  var CSS = ''            // stylesheet to load once unlocked (module mode)
+  var SALT = 'I9Cs0TnPykfwk7oiEt+r3w=='          // PBKDF2 salt (base64), shared by every AUTOPILOT page
+  var ITER = 310000
+  var STORE = 'autopilot.key'    // derived key, so the code is asked once per browser
+
+  var gate = document.getElementById('gate')
+  var form = document.getElementById('gate-form')
+  var field = document.getElementById('gate-field')
+  var input = document.getElementById('gate-code')
+  var eye = document.getElementById('gate-eye')
+  var btn = document.getElementById('gate-btn')
+  var btnT = document.getElementById('gate-btn-t')
+  var err = document.getElementById('gate-err')
+  var payload = null
+
+  function b64(bytes) { var s = ''; for (var i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]); return btoa(s) }
+  function unb64(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u }
+
+  function load() {
+    if (!payload) payload = fetch(SRC, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer() })
+    return payload
+  }
+
+  function derive(code) {
+    return crypto.subtle.importKey('raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveBits']).then(function (base) {
+      return crypto.subtle.deriveBits({ name: 'PBKDF2', salt: unb64(SALT), iterations: ITER, hash: 'SHA-256' }, base, 256)
+    }).then(function (bits) { return new Uint8Array(bits) })
+  }
+
+  function decrypt(raw) {
+    return Promise.all([load(), crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt'])]).then(function (r) {
+      var buf = new Uint8Array(r[0])
+      return crypto.subtle.decrypt({ name: 'AES-GCM', iv: buf.slice(0, 12) }, r[1], buf.slice(12))
+    })
+  }
+
+  function show(plain) {
+    if (MODE === 'document') {
+      var html = new TextDecoder().decode(plain)
+      document.open(); document.write(html); document.close()
+      return
+    }
+    if (CSS) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = CSS; document.head.appendChild(l) }
+    var s = document.createElement('script')
+    s.type = 'module'
+    s.src = URL.createObjectURL(new Blob([plain], { type: 'text/javascript' }))
+    document.body.appendChild(s)
+    document.body.style.background = ''
+    gate.classList.add('leave')
+    setTimeout(function () { gate.remove() }, 700)
+  }
+
+  function ask() {
+    gate.setAttribute('data-state', 'ask')
+    // Do not pop the keyboard over the page on phones.
+    if (window.matchMedia && matchMedia('(pointer:fine)').matches) input.focus()
+  }
+
+  function busy(on) {
+    btn.disabled = on
+    btn.classList.toggle('busy', on)
+    btnT.textContent = on ? '확인 중' : '입장하기'
+  }
+
+  function fail(text) {
+    busy(false)
+    err.textContent = text
+    field.classList.add('bad')
+    input.setAttribute('aria-invalid', 'true')
+    field.classList.remove('shake'); void field.offsetWidth; field.classList.add('shake')
+    input.select()
+  }
+
+  eye.addEventListener('click', function () {
+    var visible = input.type === 'text'
+    input.type = visible ? 'password' : 'text'
+    eye.setAttribute('aria-pressed', String(!visible))
+    eye.setAttribute('aria-label', visible ? '코드 보기' : '코드 숨기기')
+    input.focus()
+  })
+
+  input.addEventListener('input', function () { err.textContent = ''; field.classList.remove('bad'); input.removeAttribute('aria-invalid') })
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    var code = input.value.trim().toLowerCase()
+    if (!code) { fail('접속 코드를 입력해 주세요.'); return }
+    busy(true)
+    err.textContent = ''
+    var raw
+    derive(code).then(function (k) { raw = k; return decrypt(k) }).then(function (plain) {
+      try { localStorage.setItem(STORE, b64(raw)) } catch (_) {}
+      btn.classList.remove('busy'); btn.classList.add('ok'); btnT.textContent = '확인되었습니다'
+      setTimeout(function () { show(plain) }, 450)
+    }, function (e2) {
+      if (e2 && e2.name === 'OperationError') fail('코드가 맞지 않습니다. 다시 확인해 주세요.')
+      else fail('페이지를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.')
+    })
+  })
+
+  if (!window.crypto || !crypto.subtle) { ask(); fail('이 브라우저에서는 열 수 없습니다. 최신 브라우저로 열어 주세요.'); btn.disabled = true; return }
+
+  // Already unlocked in this browser: open straight away behind the logo splash.
+  var saved = null
+  try { saved = localStorage.getItem(STORE) } catch (_) {}
+  if (!saved) return ask()
+  decrypt(unb64(saved)).then(show, function () {
+    try { localStorage.removeItem(STORE) } catch (_) {}
+    ask()
+  })
+})()
+</script>
+</body>
+</html>
