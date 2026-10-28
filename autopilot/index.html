@@ -79,8 +79,9 @@
 #gate .go.ok{background:var(--ok);color:var(--ink-2)}
 @keyframes g-load{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
 #gate .help{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:.86rem;color:var(--mute)}
-#gate .help a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(213,191,149,.45);padding-bottom:1px}
-#gate .help a:hover{color:#fff;border-color:#fff}
+#gate .help{align-items:center}
+#gate .help a.call{display:inline-block;padding:9px 16px;border:1px solid rgba(213,191,149,.6);color:var(--gold-soft);text-decoration:none;font-weight:600;transition:background .25s,color .25s}
+#gate .help a.call:hover{background:var(--gold-soft);color:var(--ink-2)}
 #gate .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:20px 0 max(env(safe-area-inset-bottom),22px);border-top:1px solid var(--line);font-size:.76rem;letter-spacing:.06em;color:var(--mute)}
 
 /* motion */
@@ -170,7 +171,7 @@
           <p class="msg" id="gate-err" role="alert" aria-live="assertive"></p>
           <button type="submit" class="go" id="gate-btn"><span id="gate-btn-t">입장하기</span><span class="arr" aria-hidden="true">→</span></button>
         </form>
-        <div class="help"><span>코드가 없으신가요?</span><a href="tel:01063855874">영업팀 010-6385-5874</a></div>
+        <div class="help"><span>코드가 없으신가요?</span><a class="call" href="tel:01063855874">영업팀에 문의하기</a></div>
       </section>
     </main>
 
